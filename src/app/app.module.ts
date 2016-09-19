@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { routing, appRoutingProviders } from './app.routing';
+
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './components/album/album.component';
 import { ArtistComponent } from './components/artist/artist.component';
@@ -32,7 +34,8 @@ import { AlbumsComponent } from './pages/albums/albums.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]
