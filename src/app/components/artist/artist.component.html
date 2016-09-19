@@ -1,3 +1,12 @@
 <p>
   artist works!
 </p>
+<div *ngIf="artist">
+    <h1>{{ artist.name }}</h1>
+    <p>
+      <!-- TODO: move this out of the view, the image should be 
+           handled dinamically accordingly to online / offline stsus -->
+      <img src="{{ artist.images[0].url }}">
+    </p>
+    <p><a href (click)="back()">Back</a></p>
+  </div>

@@ -1,3 +1,15 @@
 <p>
   track works!
 </p>
+<div *ngIf="track">
+    <h1>{{ track.name }}</h1>
+    <p>
+      <!-- TODO: the url should be handled dyniamically -->
+      <img src="{{ track.album.images[1].url }}">
+    </p>
+    <p>
+      <!-- should a resilient app cache the tracks ? -->
+      <audio controls src="{{ track.preview_url }}"></audio>
+    </p>
+    <p><a href (click)="back()">Back</a></p>
+</div>
