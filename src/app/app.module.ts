@@ -8,6 +8,12 @@ import { AlbumComponent } from './components/album/album.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { TrackComponent } from './components/track/track.component';
 import { SearchComponent } from './components/search/search.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { ArtistsComponent } from './pages/artists/artists.component';
+import { TracksComponent } from './pages/tracks/tracks.component';
+import { AlbumsComponent } from './pages/albums/albums.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +21,13 @@ import { SearchComponent } from './components/search/search.component';
     AlbumComponent,
     ArtistComponent,
     TrackComponent,
-    SearchComponent
+    SearchComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    SearchResultsComponent,
+    ArtistsComponent,
+    TracksComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,
