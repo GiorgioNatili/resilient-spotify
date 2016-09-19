@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { SpotifyServiceService } from '../spotify-service.service';
+import { SpotifyService } from '../spotify.service';
 
 describe('Service: SpotifyService', () => {
   beforeEach(() => {
