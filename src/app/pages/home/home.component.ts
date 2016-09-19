@@ -7,7 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+
+  constructor() { 
+
+      let nav = <any> navigator;
+      if ('serviceWorker' in nav) {
+
+        nav.serviceWorker.register('./service-worker.js')
+           .then(function(reg) {
+
+                    console.log('yey!', <any> reg);
+           }).catch(function(err) {
+
+                console.log('boo!', <any> err);
+        });
+      }
+  }
 
   ngOnInit() {
   }

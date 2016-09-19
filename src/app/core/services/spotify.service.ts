@@ -23,7 +23,7 @@ export class SpotifyService {
     if (params) {
       queryURL = `${queryURL}?${params.join('&')}`;
     }
-
+   
     return this.http.request(queryURL).map((res: any) => res.json());
   }
 
