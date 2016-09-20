@@ -1,12 +1,16 @@
 /*eslint-disable strict */
 /* global self, importScripts, URL, caches, fetch, registration, clients, location */
 
+// Import version numbers
+importScripts('service-worker-cache-version.js');
+
 // Import cache polyfill
 importScripts('service-worker-cache-polyfill.js');
 
-var staticCacheName = 'cache-static-v2';
-var gifCacheName = 'cache-gif-v1';
-var apiCacheName = 'cache-api-v1';
+var staticCacheName = `cache-static-v${cacheVersion}`;
+var imageCacheName = `cache-img-v${cacheVersion}`;
+var apiCacheName = `cache-api-v${cacheVersion}`;
+
 var staticFiles = [
   '/',
   '/offline.jpg'
@@ -24,7 +28,25 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
 
-    var requestURL = new URL(event.request.url);
+    let requestURL = new URL(event.request.url);
+    let hostname = requestURL.hostname;
+    let href = requestURL.href;   
+
+    if (hostname === 'api.spotify.com') {
+
+         event.respondWith(networkFallbackOnCache(event.request, apiCacheName));
+    }
+
+    if (hostname === 'localhost') {
+
+        event.respondWith(networkFallbackOnCache(event.request, staticCacheName));
+    }
+
+    if (hostname === 'i.scdn.co' && href.indexOf('image') >= 0) {
+
+        event.respondWith(networkFallbackOnCache(event.request, imageCacheName));
+    }
+
     console.log('Trying to fetch: ', requestURL);
 });
 
@@ -37,13 +59,19 @@ self.addEventListener('fetch', function(event) {
  */
 function networkFallbackOnCache(request, cacheName) {
     return caches.open(cacheName).then(function(cache) {
+
         return cache.match(request.clone()).then(function(response) {
+
             return fetch(request.clone())
                 .then(function(networkResponse) {
+
+                    // Save in cache
                     cache.put(request, networkResponse.clone());
                     return networkResponse;
                 })
                 .catch(function() {
+
+                    // Handle cache saving error
                     return response;
                 });
         });
@@ -57,13 +85,20 @@ function networkFallbackOnCache(request, cacheName) {
  * @return {Promise}
  */
 function cacheFallbackOnNetwork(request, cacheName) {
+
     return caches.open(cacheName).then(function(cache) {
+
         return cache.match(request.clone()).then(function(response) {
-            var fetchPromise = fetch(request.clone()).then(function(networkResponse) {
+
+            let fetchPromise = fetch(request.clone()).then(function(networkResponse) {
+
+                // Save the result in cache
                 cache.put(request, networkResponse.clone());
                     return networkResponse;
                 });
-            return response || fetchPromise;
+
+                // Return the network request 
+                return response || fetchPromise;
         });
     });
 }
