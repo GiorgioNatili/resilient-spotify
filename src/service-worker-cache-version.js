@@ -1,0 +1,1 @@
+const cacheVersion = 0.8;
