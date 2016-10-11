@@ -31,6 +31,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
 import { TracksComponent } from './pages/tracks/tracks.component';
 import { AlbumsComponent } from './pages/albums/albums.component';
+import { AttributionComponent } from './components/attribution/attribution.component';
+import { AddToFavoritesComponent } from './components/add-to-favorites/add-to-favorites.component';
+import { ResultItemComponent } from './components/result-item/result-item.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { AlbumsComponent } from './pages/albums/albums.component';
     SearchResultsComponent,
     ArtistsComponent,
     TracksComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    AttributionComponent,
+    AddToFavoritesComponent,
+    ResultItemComponent
   ],
   imports: [
     BrowserModule,
