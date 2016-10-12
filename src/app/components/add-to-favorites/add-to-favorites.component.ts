@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { select, NgRedux } from 'ng2-redux';
+import { Observable } from 'rxjs/Observable';
+import { rootStore } from '../../store';
 import { Track } from '../../model/track';
+import { IAppState } from '../../model/appState';
 import { FavoritesActions } from '../../actions/favorites.actions';
 
 @Component({
@@ -12,20 +16,40 @@ export class AddToFavoritesComponent implements OnInit {
   @Input() id: number;
   @Input() trackName: string;
 
+  @select() favorites$: Observable<Track[]>;
+
   public addOrRemove: string;
+  public addMode: boolean;
 
-  private addMode: boolean;
+  constructor(private actions: FavoritesActions,
+              private ngRedux: NgRedux<IAppState> ) { 
 
-  constructor(private actions: FavoritesActions) { 
-
-    this.addMode = false;
+    this.addMode = true;
+    this.addOrRemove = 'Add to favorites';
   }
 
   ngOnInit() {
     
     console.log(`AddToFavoritesComponent with id: ${this.id}`);
-    // 
-    this.addOrRemove = 'Add to favorites';
+    
+    this.favorites$
+        .subscribe( favorites => {
+
+                        this.addMode = favorites.every((item: Track) => {
+                          return item.id !== this.id;
+                        });
+
+                        this.updateLabel();
+                    }, 
+                    err => {
+                      // Log errors if any
+                      console.log(err);
+                    });
+  }
+
+  updateLabel() {
+
+    this.addMode ?  this.addOrRemove = 'Add to favorites' : this.addOrRemove = 'Remove from favorites';
   }
 
   handler() {
@@ -41,6 +65,6 @@ export class AddToFavoritesComponent implements OnInit {
 
   remove() {
 
-     this.actions.addItem(this.id);
+     this.actions.removeItem(this.id);
   }
 }
