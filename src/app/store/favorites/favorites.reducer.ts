@@ -6,8 +6,7 @@ export function favoritesReducer(state: Track[] = INITIAL_STATE, action: any): T
 
   switch (action.type) {
     case FavoritesActions.ADD_ITEM:
-      state.push(action.item);
-      return state;
+      return [...state, action.item];
     case FavoritesActions.REMOVE_ITEM:
         let newState = state.filter( track => track.id != action.id);
       return newState;
