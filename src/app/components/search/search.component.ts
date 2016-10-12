@@ -26,8 +26,10 @@ export class SearchComponent implements OnInit {
         this.query = params['query'] || ''; 
         if (!this.query) {
 
-           let local:any = JSON.parse(localStorage.getItem('ng2-redux/examples/lastSearch'));
+          let local:any = JSON.parse(localStorage.getItem('ng2-redux/examples/lastSearch'));
+          if(local && local.lastSearch) {
             this.query = local.lastSearch
+          }
         }    
     });
   }
