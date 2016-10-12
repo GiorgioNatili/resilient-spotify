@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Track } from '../../model/track';
 import { FavoritesActions } from '../../actions/favorites.actions';
 
 @Component({
@@ -9,16 +10,37 @@ import { FavoritesActions } from '../../actions/favorites.actions';
 export class AddToFavoritesComponent implements OnInit {
 
   @Input() id: number;
+  @Input() trackName: string;
 
-  constructor(private actions: FavoritesActions) { }
+  public addOrRemove: string;
+
+  private addMode: boolean;
+
+  constructor(private actions: FavoritesActions) { 
+
+    this.addMode = false;
+  }
 
   ngOnInit() {
     
     console.log(`AddToFavoritesComponent with id: ${this.id}`);
+    // 
+    this.addOrRemove = 'Add to favorites';
   }
 
-  add(event: any) {
+  handler() {
 
-    this.actions.addItem(event);
+    this.addMode ? this.add() : this.remove();
+  }
+
+  add() {
+
+    let item: Track = {id: this.id, name: this.trackName};
+    this.actions.addItem(item);
+  }
+
+  remove() {
+
+     this.actions.addItem(this.id);
   }
 }
