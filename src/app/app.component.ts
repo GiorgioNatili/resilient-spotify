@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { DevToolsExtension, NgRedux, select } from 'ng2-redux';
+import { IAppState } from './model/appState';
+import { rootReducer, rootStore, enhancers } from './store';
+import { defaultState } from './store/app.initial-state';
+import { appStateLogger } from './store/logger';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +12,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+
+  constructor(private ngRedux: NgRedux<IAppState>) {
+
+    this.ngRedux.configureStore(
+      rootReducer,
+      defaultState,
+      [ appStateLogger ],
+      [ ...enhancers]);
+  }    
 }

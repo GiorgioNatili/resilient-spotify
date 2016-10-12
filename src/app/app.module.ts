@@ -2,11 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgReduxModule, NgRedux } from 'ng2-redux';
+import  thunk  from 'redux-thunk';
+import * as promise from 'redux-promise';
+import * as createLogger from 'redux-logger';
 
 /*
  * Services
  */
 import { SpotifyService } from './core/services/spotify.service';
+
+/*
+ * Actions
+ */
+import { FavoritesActions } from './actions/favorites.actions'; 
 
 /*
  * Routing
@@ -56,9 +65,10 @@ import { ResultItemComponent } from './components/result-item/result-item.compon
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    NgReduxModule,
   ],
-  providers: [SpotifyService],
+  providers: [SpotifyService, FavoritesActions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
