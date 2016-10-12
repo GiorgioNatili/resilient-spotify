@@ -11,6 +11,6 @@ export class HistoryActions {
   constructor (private ngRedux: NgRedux<IAppState>) {}
 
   addItem(item: SearchItem): void {
-    this.ngRedux.dispatch({ type: HistoryActions.ADD_ITEM, item });
+    this.ngRedux.dispatch({ type: HistoryActions.ADD_ITEM, payload: {item} });
   }
 }
