@@ -4,13 +4,15 @@ const persistState = require('redux-localstorage');
 import { IAppState } from '../model/appState';
 import { historyReducer as history } from './history/history.reducer';
 import { favoritesReducer as favorites } from './favorites/favorites.reducer';
+import { searchReducer as lastSearch } from './search/search.reducer';
 import { appStateLogger } from './logger';
 import { defaultState } from './app.initial-state';
 
 export const rootReducer = combineReducers<IAppState>({
 
   history: history,
-  favorites: favorites
+  favorites: favorites,
+  lastSearch: lastSearch
 });
 
 export const enhancers = [

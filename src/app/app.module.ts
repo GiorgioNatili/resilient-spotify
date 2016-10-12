@@ -16,6 +16,7 @@ import { SpotifyService } from './core/services/spotify.service';
  * Actions
  */
 import { FavoritesActions } from './actions/favorites.actions'; 
+import { SearchActions } from './actions/search.actions'; 
 
 /*
  * Routing
@@ -68,7 +69,7 @@ import { ResultItemComponent } from './components/result-item/result-item.compon
     routing,
     NgReduxModule,
   ],
-  providers: [SpotifyService, FavoritesActions],
+  providers: [SpotifyService, FavoritesActions, SearchActions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

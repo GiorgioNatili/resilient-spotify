@@ -1,1 +1,1 @@
-const cacheVersion = 0.8;
+const cacheVersion = 0.9;
